@@ -5,13 +5,17 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex align-items-center">
-                            <h2>All Questions</h2>
+                            <h2>Ask Question</h2>
                             <div class="ml-auto">
-                                <router-link :to="{ name: 'questions.create' }" class="btn btn-outline-secondary">Ask Question</router-link>
+                                <router-link :to="{ name:'questions' }" class="btn btn-outline-secondary">Back to all Questions</router-link>
                             </div>
                         </div>
+
                     </div>
-                    <questions></questions>
+
+                    <div class="card-body">
+                        <question-form></question-form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -19,8 +23,10 @@
 </template>
 
 <script>
-import Questions from '../components/Questions.vue';
+import QuestionForm from '../components/QuestionForm.vue'
 export default {
-    components: { Questions }
+    components:{
+        QuestionForm
+    }
 }
 </script>
