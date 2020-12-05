@@ -22,7 +22,7 @@
 <div id="app">
     <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
         <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">Laravel Q/A</a>
+            <router-link class="navbar-brand" :to="{ name:'home' }">Laravel - Vue - Stackoverflow</router-link>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -35,6 +35,10 @@
 
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
+
+                    <router-link class="nav-item" tag="li" :to="{ name: 'questions' }"><a class="nav-link" href="">Questions</a></router-link>
+                    <router-link class="nav-item" tag="li" :to="{ name: 'my-posts' }"><a class="nav-link" href="">My Posts</a></router-link>
+
                     <!-- Authentication Links -->
                     @guest
                         <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
