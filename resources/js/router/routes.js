@@ -1,6 +1,7 @@
 import QuestionsPage from '../pages/QuestionsPage.vue'
 import QuestionPage from '../pages/QuestionPage.vue'
 import MyPostsPage from '../pages/MyPostsPage.vue'
+import NotFoundPage from '../pages/NotFoundPage.vue'
 
 const routes = [
     {
@@ -25,6 +26,10 @@ const routes = [
         path: '/questions/:slug', //similar with {slug} in Laravel
         component: QuestionPage,
         name: 'questions.show'
+    },
+    {
+        path: '*',
+        component: NotFoundPage,
     }
 ]
 
