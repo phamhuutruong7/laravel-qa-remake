@@ -12404,10 +12404,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['question'],
   methods: {
@@ -66851,9 +66847,6 @@ var render = function() {
                   attrs: { method: "post", action: "#" }
                 },
                 [
-                  _vm._v(
-                    "\n                    @method('DELETE')\n                    @csrf\n                    "
-                  ),
                   _c(
                     "button",
                     {
@@ -82319,13 +82312,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   modify: function modify(user, model) {
-    return user.id === model.user_id;
+    return user.id === model.user.id;
   },
   accept: function accept(user, answer) {
-    return user.id === answer.question.user_id;
+    return user.id === answer.question.user.id;
   },
   deleteQuestion: function deleteQuestion(user, question) {
-    return user.id === question.user_id && question.answers_count < 1;
+    return user.id === question.user.id && question.answers_count < 1;
   }
 });
 
