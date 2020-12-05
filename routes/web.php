@@ -1,9 +1,9 @@
 <?php
-
+Auth::routes(['verify' => true]);
 Route::view('/{any}', 'spa')->where('any', '.*');
 
 Route::get('/', 'QuestionsController@index');
-Auth::routes(['verify' => true]);
+
 
 Route::middleware('verified')->group(function() {
     Route::get('/home', 'HomeController@index')->name('home');

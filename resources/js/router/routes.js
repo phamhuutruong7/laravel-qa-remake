@@ -16,7 +16,10 @@ const routes = [
     {
         path: '/my-posts',
         component: MyPostsPage,
-        name: 'my-posts'
+        name: 'my-posts',
+        meta: {
+            requiresAuth: true
+        }
     },
     {
         path: '/questions/:slug', //similar with {slug} in Laravel
