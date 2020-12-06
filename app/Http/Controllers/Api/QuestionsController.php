@@ -19,7 +19,7 @@ class QuestionsController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(AskQuestionRequest $request)
     {
         $question = $request->user()->questions()->create($request->only('title', 'body'));
 
@@ -40,7 +40,7 @@ class QuestionsController extends Controller
     }
 
 
-    public function update(Request $request, Question $question)
+    public function update(AskQuestionRequest $request, Question $question)
     {
         $this->authorize("update", $question);
         $question->update($request->only('title','body'));

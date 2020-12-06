@@ -12490,6 +12490,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _event_bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../event-bus */ "./resources/js/event-bus.js");
+/* harmony import */ var _MEditor_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MEditor.vue */ "./resources/js/components/MEditor.vue");
 //
 //
 //
@@ -12514,7 +12516,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    MEditor: _MEditor_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   data: function data() {
     return {
       title: '',
@@ -12525,13 +12534,25 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
+  mounted: function mounted() {
+    var _this = this;
+
+    _event_bus__WEBPACK_IMPORTED_MODULE_0__["default"].$on('error', function (errors) {
+      return _this.errors = errors;
+    });
+  },
   computed: {
     buttonText: function buttonText() {
       return 'Ask Question';
     }
   },
   methods: {
-    handleSubmit: function handleSubmit() {},
+    handleSubmit: function handleSubmit() {
+      this.$emit('submitted', {
+        title: this.title,
+        body: this.body
+      });
+    },
     errorClass: function errorClass(column) {
       return ['form-control', this.errors[column] && this.errors[column][0] ? 'is-invalid' : ''];
     }
@@ -12747,6 +12768,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_QuestionForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/QuestionForm.vue */ "./resources/js/components/QuestionForm.vue");
+/* harmony import */ var _event_bus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../event-bus */ "./resources/js/event-bus.js");
 //
 //
 //
@@ -12772,9 +12794,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     QuestionForm: _components_QuestionForm_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  methods: {
+    create: function create(data) {
+      var _this = this;
+
+      axios.post('/questions', data).then(function (_ref) {
+        var data = _ref.data;
+
+        _this.$router.push({
+          name: 'questions'
+        });
+
+        _this.$toast.success(data.message, "Success");
+      })["catch"](function (_ref2) {
+        var response = _ref2.response;
+        _event_bus__WEBPACK_IMPORTED_MODULE_1__["default"].$emit('error', response.data.errors);
+        console.log(response.data);
+      });
+    }
   }
 });
 
@@ -67202,39 +67244,46 @@ var render = function() {
           : _vm._e()
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "question-body" } }, [
-          _vm._v("Explain you question")
-        ]),
-        _vm._v(" "),
-        _c("textarea", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.body,
-              expression: "body"
-            }
-          ],
-          class: _vm.errorClass("body"),
-          attrs: { name: "body", rows: "10" },
-          domProps: { value: _vm.body },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+      _c(
+        "div",
+        { staticClass: "form-group" },
+        [
+          _c("label", { attrs: { for: "question-body" } }, [
+            _vm._v("Explain you question")
+          ]),
+          _vm._v(" "),
+          _c("m-editor", { attrs: { body: _vm.body, name: "question-body" } }, [
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.body,
+                  expression: "body"
+                }
+              ],
+              class: _vm.errorClass("body"),
+              attrs: { name: "body", rows: "10" },
+              domProps: { value: _vm.body },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.body = $event.target.value
+                }
               }
-              _vm.body = $event.target.value
-            }
-          }
-        }),
-        _vm._v(" "),
-        _vm.errors["body"][0]
-          ? _c("div", { staticClass: "invalid-feedback" }, [
-              _c("strong", [_vm._v(_vm._s(_vm.errors["body"][0]))])
-            ])
-          : _vm._e()
-      ]),
+            }),
+            _vm._v(" "),
+            _vm.errors["body"][0]
+              ? _c("div", { staticClass: "invalid-feedback" }, [
+                  _c("strong", [_vm._v(_vm._s(_vm.errors["body"][0]))])
+                ])
+              : _vm._e()
+          ])
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
         _c(
@@ -67451,7 +67500,12 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [_c("question-form")], 1)
+          _c(
+            "div",
+            { staticClass: "card-body" },
+            [_c("question-form", { on: { submitted: _vm.create } })],
+            1
+          )
         ])
       ])
     ])
