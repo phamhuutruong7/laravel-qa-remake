@@ -60,6 +60,7 @@
 
 <script>
 import modification from '../mixins/modification';
+import EventBus from '../event-bus';
 
 export default {
     props: ['question'],
@@ -74,6 +75,12 @@ export default {
             id: this.question.id,
             beforeEditCache: {}
         }
+    },
+
+    mounted(){
+        EventBus.$on('answers-count-changed', (count) => {
+            this.question.answers_count = count;
+        })
     },
 
     computed: {
@@ -114,6 +121,7 @@ export default {
             axios.delete(this.endpoint)
                 .then(({data}) => {
                     this.$toast.success(data.message, "Success", { timeout: 2000 });
+                    this.$router.push({ name: 'question'});
                 });
 
                 setTimeout(() => {

@@ -26,6 +26,7 @@
 import Answer from './Answer.vue';
 import NewAnswer from './NewAnswer.vue';
 import highlight from '../mixins/highlight';
+import EventBus from '../event-bus';
 
 export default {
     props: ['question'],
@@ -53,11 +54,20 @@ export default {
             this.$nextTick(() => {
                 this.highlight(`answer-${answer.id}`);
             })
+            if(this.count === 1)
+            {
+                EventBus.$emit('answers-count-changed', this.count);
+            }
         },
 
         remove (index) {
             this.answers.splice(index, 1);
             this.count--;
+            if(this.count === 0)
+            {
+                EventBus.$emit('answers-count-changed', this.count);
+            }
+
         },
 
         fetch (endpoint) {

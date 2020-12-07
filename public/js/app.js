@@ -11926,6 +11926,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Answer_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Answer.vue */ "./resources/js/components/Answer.vue");
 /* harmony import */ var _NewAnswer_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NewAnswer.vue */ "./resources/js/components/NewAnswer.vue");
 /* harmony import */ var _mixins_highlight__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mixins/highlight */ "./resources/js/mixins/highlight.js");
+/* harmony import */ var _event_bus__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../event-bus */ "./resources/js/event-bus.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -11965,6 +11966,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['question'],
   mixins: [_mixins_highlight__WEBPACK_IMPORTED_MODULE_2__["default"]],
@@ -11989,10 +11991,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.$nextTick(function () {
         _this.highlight("answer-".concat(answer.id));
       });
+
+      if (this.count === 1) {
+        _event_bus__WEBPACK_IMPORTED_MODULE_3__["default"].$emit('answers-count-changed', this.count);
+      }
     },
     remove: function remove(index) {
       this.answers.splice(index, 1);
       this.count--;
+
+      if (this.count === 0) {
+        _event_bus__WEBPACK_IMPORTED_MODULE_3__["default"].$emit('answers-count-changed', this.count);
+      }
     },
     fetch: function fetch(endpoint) {
       var _this2 = this;
@@ -12301,6 +12311,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_modification__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../mixins/modification */ "./resources/js/mixins/modification.js");
+/* harmony import */ var _event_bus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../event-bus */ "./resources/js/event-bus.js");
 //
 //
 //
@@ -12362,6 +12373,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['question'],
   mixins: [_mixins_modification__WEBPACK_IMPORTED_MODULE_0__["default"]],
@@ -12373,6 +12385,13 @@ __webpack_require__.r(__webpack_exports__);
       id: this.question.id,
       beforeEditCache: {}
     };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    _event_bus__WEBPACK_IMPORTED_MODULE_1__["default"].$on('answers-count-changed', function (count) {
+      _this.question.answers_count = count;
+    });
   },
   computed: {
     isInvalid: function isInvalid() {
@@ -12403,13 +12422,17 @@ __webpack_require__.r(__webpack_exports__);
       };
     },
     "delete": function _delete() {
-      var _this = this;
+      var _this2 = this;
 
       axios["delete"](this.endpoint).then(function (_ref) {
         var data = _ref.data;
 
-        _this.$toast.success(data.message, "Success", {
+        _this2.$toast.success(data.message, "Success", {
           timeout: 2000
+        });
+
+        _this2.$router.push({
+          name: 'question'
         });
       });
       setTimeout(function () {
