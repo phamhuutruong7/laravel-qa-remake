@@ -1,7 +1,8 @@
 <template>
     <div>
         <div class="card-body">
-            <div v-if="questions.length">
+            <spinner v-if="loading"></spinner>
+            <div v-else-if="questions.length">
                 <question-excerpt @deleted="remove(index)" v-for="(question, index) in questions" :question="question" :key="question.id"></question-excerpt>
             </div>
             <div v-else class="alert alert-warning">
@@ -26,7 +27,8 @@ export default {
         return {
             questions: [],
             meta: {},
-            links: {}
+            links: {},
+            loading: false
         }
     },
     mounted(){
@@ -34,11 +36,13 @@ export default {
     },
     methods:{
         fetchQuestions(){
+            this.loading = true;
             axios.get('/questions', { params: this.$route.query })
                 .then(({data}) => {
                     this.questions = data.data;
                     this.meta = data.meta;
                     this.links = data.links;
+                    this.loading = false;
                 })
         },
         remove(index){
