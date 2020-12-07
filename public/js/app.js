@@ -11976,7 +11976,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       count: this.question.answers_count,
       answers: [],
       answerIds: [],
-      nextUrl: null
+      nextUrl: null,
+      excludeAnswers: []
     };
   },
   created: function created() {
@@ -11986,6 +11987,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     add: function add(answer) {
       var _this = this;
 
+      this.excludeAnswers.push(answer);
       this.answers.push(answer);
       this.count++;
       this.$nextTick(function () {
@@ -12029,6 +12031,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   computed: {
     title: function title() {
       return this.count + " " + (this.count > 1 ? 'Answers' : 'Answer');
+    },
+    theNextUrl: function theNextUrl() {
+      if (this.nextUrl && this.excludeAnswers.length) {
+        return this.nextUrl + this.excludeAnswers.map(function (a) {
+          return '&excludes[]=' + a.id;
+        }).join('');
+      }
+
+      return this.nextUrl;
     }
   },
   components: {
@@ -66668,7 +66679,7 @@ var render = function() {
                       })
                     }),
                     _vm._v(" "),
-                    _vm.nextUrl
+                    _vm.theNextUrl
                       ? _c("div", { staticClass: "text-center mt-3" }, [
                           _c(
                             "button",
@@ -66677,7 +66688,7 @@ var render = function() {
                               on: {
                                 click: function($event) {
                                   $event.preventDefault()
-                                  return _vm.fetch(_vm.nextUrl)
+                                  return _vm.fetch(_vm.theNextUrl)
                                 }
                               }
                             },
