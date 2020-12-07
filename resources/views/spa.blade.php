@@ -68,7 +68,10 @@
     </nav>
 
     <main class="py-4">
-        <router-view></router-view>
+        <transition name="fade" mode="out-in">
+            <router-view></router-view>
+        </transition>
+
     </main>
 </div>
 
