@@ -6,49 +6,35 @@
                     <div class="card-header">
                         <ul class="nav nav-tabs card-header-tabs">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="true" href="#">All</a>
+                                <router-link exact :to="{ name:'my-posts' }" class="nav-link">All</router-link>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Questions</a>
+                                <router-link exact :to="{ name:'my-posts', query:{ type: 'questions'} }" class="nav-link">Questions</router-link>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Answers</a>
+                                <router-link exact :to="{ name:'my-posts', query:{ type: 'answers' } }" class="nav-link">Answers</router-link>
                             </li>
                         </ul>
                     </div>
                     <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
+                        <ul class="list-group list-group-flush" v-if="posts.length">
+                            <li class="list-group-item" v-for="(post, index) in posts" :key="index">
                                 <div class="row">
                                     <div class="col">
-                                        <span class="post-badge accepted">A</span>
-                                        <span class="ml-4 votes-count accepted">10</span>
+                                        <span class="post-badge :class={ accepted: post.accepted }">{{ post.type }}</span>
+                                        <span class="ml-4 votes-count :class={ accepted: post.accepted }">{{ post.votes_count }}</span>
                                     </div>
-                                    <div class="col-md-9">Lorem ipsum dolor</div>
-                                    <div class="col text-right">Jun 6'15</div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="col">
-                                        <span class="post-badge accepted">Q</span>
-                                        <span class="ml-4 votes-count accepted">14</span>
-                                    </div>
-                                    <div class="col-md-9">Lorem ipsum dolor</div>
-                                    <div class="col text-right">Apr 6'15</div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="col">
-                                        <span class="post-badge accepted">Q</span>
-                                        <span class="ml-4 votes-count accepted">13</span>
-                                    </div>
-                                    <div class="col-md-9">Lorem ipsum dolor</div>
-                                    <div class="col text-right">Mar 6'15</div>
+                                    <div class="col-md-9 text-left">{{ post.title }}</div>
+                                    <div class="col text-right">{{ post.created_at }}</div>
                                 </div>
                             </li>
                         </ul>
+                        <div class="alert alert-warning" v-else>
+                            <p>You have dont have any questions or answers.</p>
+                            <p>
+                                <router-link :to="{ name:'questions.create' }">Ask Question</router-link>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -81,3 +67,27 @@
         }
     }
 </style>
+<script>
+export default {
+    data(){
+        return {
+            posts: []
+        }
+    },
+    mounted() {
+        this.fetchPosts();
+    },
+    methods: {
+        fetchPosts(){
+            axios.get('/my-posts', { params:this.$route.query })
+                .then(({ data }) => {
+                    this.posts = data.data
+                })
+                .catch(err => console.log(err))
+        }
+    },
+    watch: {
+        "$route":'fetchPosts'
+    }
+}
+</script>

@@ -12958,6 +12958,114 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/MyPostsPage.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/MyPostsPage.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      posts: []
+    };
+  },
+  mounted: function mounted() {
+    this.fetchPosts();
+  },
+  methods: {
+    fetchPosts: function fetchPosts() {
+      var _this = this;
+
+      axios.get('/my-posts', {
+        params: this.$route.query
+      }).then(function (_ref) {
+        var data = _ref.data;
+        _this.posts = data.data;
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    }
+  },
+  watch: {
+    "$route": 'fetchPosts'
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/QuestionPage.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/QuestionPage.vue?vue&type=script&lang=js& ***!
@@ -67810,119 +67918,136 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-12" }, [
-          _c("div", { staticClass: "card text-center" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _c("ul", { staticClass: "nav nav-tabs card-header-tabs" }, [
-                _c("li", { staticClass: "nav-item" }, [
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "card text-center" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _c("ul", { staticClass: "nav nav-tabs card-header-tabs" }, [
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
                   _c(
-                    "a",
+                    "router-link",
                     {
-                      staticClass: "nav-link active",
-                      attrs: { "aria-current": "true", href: "#" }
+                      staticClass: "nav-link",
+                      attrs: { exact: "", to: { name: "my-posts" } }
                     },
                     [_vm._v("All")]
                   )
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "nav-item" }, [
-                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-                    _vm._v("Questions")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "nav-item" }, [
-                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-                    _vm._v("Answers")
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("ul", { staticClass: "list-group list-group-flush" }, [
-                _c("li", { staticClass: "list-group-item" }, [
-                  _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col" }, [
-                      _c("span", { staticClass: "post-badge accepted" }, [
-                        _vm._v("A")
-                      ]),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "ml-4 votes-count accepted" }, [
-                        _vm._v("10")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-9" }, [
-                      _vm._v("Lorem ipsum dolor")
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col text-right" }, [
-                      _vm._v("Jun 6'15")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "list-group-item" }, [
-                  _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col" }, [
-                      _c("span", { staticClass: "post-badge accepted" }, [
-                        _vm._v("Q")
-                      ]),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "ml-4 votes-count accepted" }, [
-                        _vm._v("14")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-9" }, [
-                      _vm._v("Lorem ipsum dolor")
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col text-right" }, [
-                      _vm._v("Apr 6'15")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "list-group-item" }, [
-                  _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col" }, [
-                      _c("span", { staticClass: "post-badge accepted" }, [
-                        _vm._v("Q")
-                      ]),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "ml-4 votes-count accepted" }, [
-                        _vm._v("13")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-9" }, [
-                      _vm._v("Lorem ipsum dolor")
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col text-right" }, [
-                      _vm._v("Mar 6'15")
-                    ])
-                  ])
-                ])
-              ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: {
+                        exact: "",
+                        to: { name: "my-posts", query: { type: "questions" } }
+                      }
+                    },
+                    [_vm._v("Questions")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: {
+                        exact: "",
+                        to: { name: "my-posts", query: { type: "answers" } }
+                      }
+                    },
+                    [_vm._v("Answers")]
+                  )
+                ],
+                1
+              )
             ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _vm.posts.length
+              ? _c(
+                  "ul",
+                  { staticClass: "list-group list-group-flush" },
+                  _vm._l(_vm.posts, function(post, index) {
+                    return _c(
+                      "li",
+                      { key: index, staticClass: "list-group-item" },
+                      [
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col" }, [
+                            _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "post-badge :class={ accepted: post.accepted }"
+                              },
+                              [_vm._v(_vm._s(post.type))]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "ml-4 votes-count :class={ accepted: post.accepted }"
+                              },
+                              [_vm._v(_vm._s(post.votes_count))]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-9 text-left" }, [
+                            _vm._v(_vm._s(post.title))
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col text-right" }, [
+                            _vm._v(_vm._s(post.created_at))
+                          ])
+                        ])
+                      ]
+                    )
+                  }),
+                  0
+                )
+              : _c("div", { staticClass: "alert alert-warning" }, [
+                  _c("p", [
+                    _vm._v("You have dont have any questions or answers.")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "p",
+                    [
+                      _c(
+                        "router-link",
+                        { attrs: { to: { name: "questions.create" } } },
+                        [_vm._v("Ask Question")]
+                      )
+                    ],
+                    1
+                  )
+                ])
           ])
         ])
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -84511,17 +84636,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _MyPostsPage_vue_vue_type_template_id_26b322bd_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MyPostsPage.vue?vue&type=template&id=26b322bd&scoped=true& */ "./resources/js/pages/MyPostsPage.vue?vue&type=template&id=26b322bd&scoped=true&");
-/* harmony import */ var _MyPostsPage_vue_vue_type_style_index_0_id_26b322bd_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MyPostsPage.vue?vue&type=style&index=0&id=26b322bd&lang=scss&scoped=true& */ "./resources/js/pages/MyPostsPage.vue?vue&type=style&index=0&id=26b322bd&lang=scss&scoped=true&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _MyPostsPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MyPostsPage.vue?vue&type=script&lang=js& */ "./resources/js/pages/MyPostsPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _MyPostsPage_vue_vue_type_style_index_0_id_26b322bd_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MyPostsPage.vue?vue&type=style&index=0&id=26b322bd&lang=scss&scoped=true& */ "./resources/js/pages/MyPostsPage.vue?vue&type=style&index=0&id=26b322bd&lang=scss&scoped=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-var script = {}
+
+
 
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  script,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _MyPostsPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _MyPostsPage_vue_vue_type_template_id_26b322bd_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
   _MyPostsPage_vue_vue_type_template_id_26b322bd_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -84535,6 +84662,20 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 if (false) { var api; }
 component.options.__file = "resources/js/pages/MyPostsPage.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/pages/MyPostsPage.vue?vue&type=script&lang=js&":
+/*!*********************************************************************!*\
+  !*** ./resources/js/pages/MyPostsPage.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MyPostsPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./MyPostsPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/MyPostsPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MyPostsPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
