@@ -12528,6 +12528,8 @@ __webpack_require__.r(__webpack_exports__);
         });
 
         _event_bus__WEBPACK_IMPORTED_MODULE_1__["default"].$emit('deleted', _this.question.id);
+
+        _this.$root.enableInterceptor();
       });
     }
   },
@@ -83460,34 +83462,36 @@ Vue.component('spinner', _components_Spinner_vue__WEBPACK_IMPORTED_MODULE_4__["d
 var app = new Vue({
   el: '#app',
   data: {
-    //in this Vue instance, data can be declared with properties, not object.
-    loading: false
+    loading: false,
+    interceptor: null
   },
   created: function created() {
-    var _this = this;
+    this.enableInterceptor();
+  },
+  methods: {
+    enableInterceptor: function enableInterceptor() {
+      var _this = this;
 
-    // Add a request interceptor
-    axios.interceptors.request.use(function (config) {
-      // Do something before request is sent
-      _this.loading = true;
-      return config;
-    }, function (error) {
-      // Do something with request error
-      _this.loading = false;
-      return Promise.reject(error);
-    }); // Add a response interceptor
+      // Add a request interceptor
+      this.interceptor = axios.interceptors.request.use(function (config) {
+        _this.loading = true;
+        return config;
+      }, function (error) {
+        _this.loading = false;
+        return Promise.reject(error);
+      }); // Add a response interceptor
 
-    axios.interceptors.response.use(function (response) {
-      // Any status code that lie within the range of 2xx cause this function to trigger
-      // Do something with response data
-      _this.loading = false;
-      return response;
-    }, function (error) {
-      // Any status codes that falls outside the range of 2xx cause this function to trigger
-      // Do something with response error
-      _this.loading = false;
-      return Promise.reject(error);
-    });
+      axios.interceptors.response.use(function (response) {
+        _this.loading = false;
+        return response;
+      }, function (error) {
+        _this.loading = false;
+        return Promise.reject(error);
+      });
+    },
+    disableInterceptor: function disableInterceptor() {
+      axios.interceptors.request.eject(this.interceptor);
+    }
   },
   router: _router__WEBPACK_IMPORTED_MODULE_3__["default"]
 });
