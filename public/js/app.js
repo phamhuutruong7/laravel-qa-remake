@@ -12672,8 +12672,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       questions: [],
       meta: {},
-      links: {},
-      loading: false
+      links: {}
     };
   },
   mounted: function mounted() {
@@ -12683,7 +12682,6 @@ __webpack_require__.r(__webpack_exports__);
     fetchQuestions: function fetchQuestions() {
       var _this = this;
 
-      this.loading = true;
       axios.get('/questions', {
         params: this.$route.query
       }).then(function (_ref) {
@@ -12691,7 +12689,6 @@ __webpack_require__.r(__webpack_exports__);
         _this.questions = data.data;
         _this.meta = data.meta;
         _this.links = data.links;
-        _this.loading = false;
       });
     },
     remove: function remove(index) {
@@ -12971,6 +12968,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -67701,7 +67699,7 @@ var render = function() {
       "div",
       { staticClass: "card-body" },
       [
-        _vm.loading
+        _vm.$root.loading
           ? _c("spinner")
           : _vm.questions.length
           ? _c(
@@ -67765,7 +67763,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "spinner" }, [
-      _c("div", { staticClass: "fa fa-spinner fa-spin fa-3x" })
+      _c("i", { staticClass: "fa fa-spinner fa-spin fa-3x" })
     ])
   }
 ]
@@ -68073,68 +68071,75 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _vm.posts.length
-              ? _c(
-                  "ul",
-                  { staticClass: "list-group list-group-flush" },
-                  _vm._l(_vm.posts, function(post, index) {
-                    return _c(
-                      "li",
-                      { key: index, staticClass: "list-group-item" },
-                      [
-                        _c("div", { staticClass: "row" }, [
-                          _c("div", { staticClass: "col" }, [
-                            _c(
-                              "span",
-                              {
-                                staticClass:
-                                  "post-badge :class={ accepted: post.accepted }"
-                              },
-                              [_vm._v(_vm._s(post.type))]
-                            ),
+          _c(
+            "div",
+            { staticClass: "card-body" },
+            [
+              _vm.$root.loading
+                ? _c("spinner")
+                : _vm.posts.length
+                ? _c(
+                    "ul",
+                    { staticClass: "list-group list-group-flush" },
+                    _vm._l(_vm.posts, function(post, index) {
+                      return _c(
+                        "li",
+                        { key: index, staticClass: "list-group-item" },
+                        [
+                          _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col" }, [
+                              _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "post-badge :class={ accepted: post.accepted }"
+                                },
+                                [_vm._v(_vm._s(post.type))]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "ml-4 votes-count :class={ accepted: post.accepted }"
+                                },
+                                [_vm._v(_vm._s(post.votes_count))]
+                              )
+                            ]),
                             _vm._v(" "),
-                            _c(
-                              "span",
-                              {
-                                staticClass:
-                                  "ml-4 votes-count :class={ accepted: post.accepted }"
-                              },
-                              [_vm._v(_vm._s(post.votes_count))]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "col-md-9 text-left" }, [
-                            _vm._v(_vm._s(post.title))
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "col text-right" }, [
-                            _vm._v(_vm._s(post.created_at))
+                            _c("div", { staticClass: "col-md-9 text-left" }, [
+                              _vm._v(_vm._s(post.title))
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col text-right" }, [
+                              _vm._v(_vm._s(post.created_at))
+                            ])
                           ])
-                        ])
-                      ]
-                    )
-                  }),
-                  0
-                )
-              : _c("div", { staticClass: "alert alert-warning" }, [
-                  _c("p", [
-                    _vm._v("You have dont have any questions or answers.")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "p",
-                    [
-                      _c(
-                        "router-link",
-                        { attrs: { to: { name: "questions.create" } } },
-                        [_vm._v("Ask Question")]
+                        ]
                       )
-                    ],
-                    1
+                    }),
+                    0
                   )
-                ])
-          ])
+                : _c("div", { staticClass: "alert alert-warning" }, [
+                    _c("p", [
+                      _vm._v("You have dont have any questions or answers.")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "p",
+                      [
+                        _c(
+                          "router-link",
+                          { attrs: { to: { name: "questions.create" } } },
+                          [_vm._v("Ask Question")]
+                        )
+                      ],
+                      1
+                    )
+                  ])
+            ],
+            1
+          )
         ])
       ])
     ])
@@ -83388,6 +83393,36 @@ Vue.use(_authorization_authorize__WEBPACK_IMPORTED_MODULE_2__["default"]);
 Vue.component('spinner', _components_Spinner_vue__WEBPACK_IMPORTED_MODULE_4__["default"]);
 var app = new Vue({
   el: '#app',
+  data: {
+    //in this Vue instance, data can be declared with properties, not object.
+    loading: false
+  },
+  created: function created() {
+    var _this = this;
+
+    // Add a request interceptor
+    axios.interceptors.request.use(function (config) {
+      // Do something before request is sent
+      _this.loading = true;
+      return config;
+    }, function (error) {
+      // Do something with request error
+      _this.loading = false;
+      return Promise.reject(error);
+    }); // Add a response interceptor
+
+    axios.interceptors.response.use(function (response) {
+      // Any status code that lie within the range of 2xx cause this function to trigger
+      // Do something with response data
+      _this.loading = false;
+      return response;
+    }, function (error) {
+      // Any status codes that falls outside the range of 2xx cause this function to trigger
+      // Do something with response error
+      _this.loading = false;
+      return Promise.reject(error);
+    });
+  },
   router: _router__WEBPACK_IMPORTED_MODULE_3__["default"]
 });
 
