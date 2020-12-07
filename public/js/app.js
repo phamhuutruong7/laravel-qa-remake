@@ -12278,7 +12278,9 @@ __webpack_require__.r(__webpack_exports__);
   props: ['meta', 'links'],
   computed: {
     pagesInfo: function pagesInfo() {
-      return "Page ".concat(this.meta.current_page, " of ").concat(this.meta.last_page);
+      var currentPage = this.meta.current_page || 1,
+          lastPage = this.meta.last_page || 1;
+      return "Page ".concat(currentPage, " of ").concat(lastPage);
     },
     isFirst: function isFirst() {
       return this.meta.current_page === 1;
