@@ -53,7 +53,7 @@ export default {
                 .then(res => {
                     this.$toast.success(res.data.message, "Success", { timeout: 2000 });
                     eventBus.$emit('deleted', this.question.id)
-                    
+
                     this.$root.enableInterceptor();
                 })
         }

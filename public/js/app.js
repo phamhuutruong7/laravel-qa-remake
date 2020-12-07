@@ -85266,7 +85266,7 @@ var routes = [{
   component: _pages_EditQuestionPage_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
   name: 'questions.edit'
 }, {
-  path: '/my-posts',
+  path: '/home',
   component: _pages_MyPostsPage_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
   name: 'my-posts',
   meta: {
