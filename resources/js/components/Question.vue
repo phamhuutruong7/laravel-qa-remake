@@ -70,7 +70,7 @@ export default {
         return {
             title: this.question.title,
             body: this.question.body,
-            bodyHtml: this.question.body_html,            
+            bodyHtml: this.question.body_html,
             id: this.question.id,
             beforeEditCache: {}
         }

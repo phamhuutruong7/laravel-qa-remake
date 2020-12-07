@@ -12468,6 +12468,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_mixins_destroy__WEBPACK_IMPORTED_MODULE_0__["default"]],
@@ -12947,7 +12949,27 @@ __webpack_require__.r(__webpack_exports__);
     Question: _components_Question_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     Answers: _components_Answers_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  props: ['question']
+  props: ['slug'],
+  data: function data() {
+    return {
+      question: {}
+    };
+  },
+  mounted: function mounted() {
+    this.fetchQuestion();
+  },
+  methods: {
+    fetchQuestion: function fetchQuestion() {
+      var _this = this;
+
+      axios.get("/questions/".concat(this.slug)).then(function (_ref) {
+        var data = _ref.data;
+        _this.question = data.data;
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -67217,11 +67239,25 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "media-body" }, [
       _c("div", { staticClass: "d-flex align-items-center" }, [
-        _c("h3", { staticClass: "mt-0" }, [
-          _c("a", { attrs: { href: "#" } }, [
-            _vm._v(_vm._s(_vm.question.title))
-          ])
-        ]),
+        _c(
+          "h3",
+          { staticClass: "mt-0" },
+          [
+            _c(
+              "router-link",
+              {
+                attrs: {
+                  to: {
+                    name: "questions.show",
+                    params: { slug: _vm.question.slug }
+                  }
+                }
+              },
+              [_vm._v(_vm._s(_vm.question.title))]
+            )
+          ],
+          1
+        ),
         _vm._v(" "),
         _c(
           "div",
@@ -67765,16 +67801,14 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "container" },
-    [
-      _c("question", { attrs: { question: _vm.question } }),
-      _vm._v(" "),
-      _c("answers", { attrs: { question: _vm.question } })
-    ],
-    1
-  )
+  return _vm.question.id
+    ? _c(
+        "div",
+        { staticClass: "container" },
+        [_c("question", { attrs: { question: _vm.question } })],
+        1
+      )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -84586,6 +84620,7 @@ var routes = [{
   name: 'questions.create'
 }, {
   path: '/questions/:id/edit',
+  //this.$router.params.id
   component: _pages_EditQuestionPage_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
   name: 'questions.edit'
 }, {
@@ -84599,7 +84634,8 @@ var routes = [{
   path: '/questions/:slug',
   //similar with {slug} in Laravel
   component: _pages_QuestionPage_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-  name: 'questions.show'
+  name: 'questions.show',
+  props: true
 }, {
   path: '*',
   component: _pages_NotFoundPage_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
