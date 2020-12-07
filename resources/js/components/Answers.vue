@@ -69,7 +69,7 @@ export default {
 
                 this.answers.push(...data.data);
                 
-                this.nextUrl = data.next_page_url;
+                this.nextUrl = data.links.next;
             })
             .then(() => {
                 this.answerIds.forEach(id => {
