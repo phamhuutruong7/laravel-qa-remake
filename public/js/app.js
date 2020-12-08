@@ -13216,6 +13216,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -68329,6 +68332,8 @@ var render = function() {
               _c("div", { staticClass: "d-flex align-items-center" }, [
                 _c("h2", [_vm._v("All Questions")]),
                 _vm._v(" "),
+                _vm._m(0),
+                _vm._v(" "),
                 _c(
                   "div",
                   { staticClass: "ml-auto" },
@@ -68355,7 +68360,20 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "ml-auto mr-auto" }, [
+      _c("p", { staticStyle: { color: "blue" } }, [
+        _vm._v(
+          "Feel free to create account and ask your questions. Email verification is not needed."
+        )
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
